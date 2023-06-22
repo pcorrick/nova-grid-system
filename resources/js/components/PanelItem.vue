@@ -13,7 +13,7 @@
           <p v-if="fieldValue && !shouldDisplayAsHtml" class="text-90">
             {{ fieldValue }}
           </p>
-          <div v-else-if="fieldValue && shouldDisplayAsHtml" v-html="field.value"></div>
+          <div v-else-if="fieldValue && shouldDisplayAsHtml" v-html="fieldValue"></div>
           <p v-else>&mdash;</p>
         </slot>
       </div>
