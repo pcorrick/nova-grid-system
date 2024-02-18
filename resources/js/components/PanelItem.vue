@@ -13,10 +13,7 @@
           <p v-if="fieldValue && !shouldDisplayAsHtml" class="text-90">
             {{ fieldValue }}
           </p>
-          <div
-            v-else-if="fieldValue && shouldDisplayAsHtml"
-            v-html="field.value"
-          ></div>
+          <div v-else-if="fieldValue && shouldDisplayAsHtml" v-html="fieldValue"></div>
           <p v-else>&mdash;</p>
         </slot>
       </div>
@@ -25,7 +22,9 @@
 </template>
 
 <script>
+import { CopiesToClipboard, FieldValue } from '@/mixins';
 export default {
+  mixins: [CopiesToClipboard, FieldValue],
   props: {
     field: {
       type: Object,
@@ -49,7 +48,7 @@ export default {
       this.hasSize &
       (this.$parent.$parent.$parent.selectedTab !== undefined)
     ) {
-       this.$el.classList.add("inline-block");
+      this.$el.classList.add("inline-block");
     }
 
     if (this.getRemoveBottomBorder === true) {
@@ -63,17 +62,17 @@ export default {
       return this.fieldName || this.field.name;
     },
 
-    fieldValue() {
-      if (
-        this.field.value === "" ||
-        this.field.value === null ||
-        this.field.value === undefined
-      ) {
-        return false;
-      }
+    // fieldValue() {
+    //   if (
+    //     this.field.value === "" ||
+    //     this.field.value === null ||
+    //     this.field.value === undefined
+    //   ) {
+    //     return false;
+    //   }
 
-      return String(this.field.value);
-    },
+    //   return String(this.field.value);
+    // },
 
     shouldDisplayAsHtml() {
       return this.field.asHtml;
@@ -85,8 +84,8 @@ export default {
           ? "w-full"
           : "w-4/5"
         : this.hasSize
-        ? "w-full"
-        : "w-3/4";
+          ? "w-full"
+          : "w-3/4";
     },
 
     /**

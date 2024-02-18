@@ -3,10 +3,7 @@
     <field-wrapper :stacked="field.stacked" v-if="field.visible">
       <div class="px-8" :class="field.stacked ? 'pt-6 w-full' : 'py-6 w-1/5'">
         <slot>
-          <form-label
-            :label-for="field.attribute"
-            :class="{ 'mb-2': showHelpText && field.helpText }"
-          >
+          <form-label :label-for="field.attribute" :class="{ 'mb-2': showHelpText && field.helpText }">
             {{ fieldLabel }}
 
             <span v-if="field.required" class="text-danger text-sm">{{
@@ -18,10 +15,7 @@
       <div class="py-6 px-8" :class="fieldClasses">
         <slot name="field" />
 
-        <help-text
-          class="error-text mt-2 text-danger"
-          v-if="showErrors && hasError"
-        >
+        <help-text class="error-text mt-2 text-danger" v-if="showErrors && hasError">
           {{ firstError }}
         </help-text>
 
@@ -34,7 +28,7 @@
 </template>
 
 <script>
-import { HandlesValidationErrors, Errors } from "laravel-nova";
+import { HandlesValidationErrors } from '@/mixins';
 
 export default {
   mixins: [HandlesValidationErrors],
@@ -49,7 +43,7 @@ export default {
 
   mounted() {
     if (!this.hasSize) {
-      
+
       this.$el.parentElement.classList.add("w-full");
     }
 
@@ -67,7 +61,7 @@ export default {
       this.hasSize &
       (this.$parent.$parent.$parent.selectedTab !== undefined)
     ) {
-       this.$el.classList.add("inline-block");
+      this.$el.classList.add("inline-block");
     }
 
     if (this.getRemoveBottomBorder === true) {
@@ -76,7 +70,7 @@ export default {
       this.$el.children[0].classList.remove("remove-bottom-border");
     }
 
-   
+
   },
 
   computed: {
@@ -101,8 +95,8 @@ export default {
           ? "w-full"
           : "w-4/5"
         : this.hasSize
-        ? "w-full"
-        : "w-1/2";
+          ? "w-full"
+          : "w-1/2";
     },
 
     /**
